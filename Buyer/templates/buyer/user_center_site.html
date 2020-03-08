@@ -1,0 +1,38 @@
+{% extends "buyer/base1.html" %}
+{% load static %}
+
+{% block content %}
+
+		<div class="right_content clearfix">
+				<h3 class="common_title2">收货地址</h3>
+				<div class="site_con">
+					<dl>
+						<dt>当前地址：</dt>
+                        {% for add in add_list %}
+						<dd>{{ add.address }} （{{ add.recver }} 收） {{ add.phone }}</dd>
+                        {% endfor %}
+					</dl>
+				</div>
+				<h3 class="common_title2">编辑地址</h3>
+				<div class="site_con">
+					<form method="post" action="">
+                        {% csrf_token %}
+						<div class="form_group">
+							<label>收件人：</label>
+							<input type="text" name="recver">
+						</div>
+						<div class="form_group form_group2">
+							<label>详细地址：</label>
+							<textarea class="site_area" name="address"></textarea>
+						</div>
+
+						<div class="form_group">
+							<label>手机：</label>
+							<input type="text" name="phone">
+						</div>
+
+						<input type="submit"  value="提交" class="info_submit">
+					</form>
+				</div>
+		</div>
+	{% endblock %}

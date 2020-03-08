@@ -1,0 +1,71 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block content %}
+    <a href="/Store/addCommodity/" class="btn btn-block btn-warning">添加商品</a>
+    <table class="table text-xl-center">
+         <tr>
+            <th>
+                商品名称
+            </th>
+            <th>
+                商品编号
+            </th>
+             <th>
+                    商品价格
+                </th>
+            <th>
+                商品数量
+            </th>
+            <th>
+                生产日期
+            </th>
+            <th>
+                保质期
+            </th>
+            <th>
+                操作
+            </th>
+        </tr>
+    {% for commmodity in page_data %}
+        <tr>
+            <td>
+                {{ commmodity.commodity_name }}
+            </td>
+            <td>
+                {{ commmodity.commodity_id }}
+            </td>
+             <td>
+                {{ commmodity.commodity_price }}
+            </td>
+            <td>
+                {{ commmodity.commodity_number }}
+            </td>
+            <td>
+                {{ commmodity.commodity_data }}
+            </td>
+            <td>
+                {{ commmodity.commodity_safe_data }}
+            </td>
+            <td>
+                {% ifequal type "up" %}
+                <a href="/Store/soldCommodity/down/{{ commmodity.id }}/"><button class="btn btn-primary" type="button">下架</button></a>
+                    {% else %}
+                <a href="/Store/soldCommodity/up/{{ commmodity.id }}/"><button class="btn btn-primary" type="button">上架</button></a>
+
+                {% endifequal %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <ul class="pagination">
+    {% for p in page_range %}
+        {% ifequal type "up" %}
+        <li class="pagination"><a class="page-link" href="/Store/listCommodity/up/{{ p }}/">{{ p }}</a></li>
+        {% else %}
+         <li class="pagination"><a class="page-link" href="/Store/listCommodity/down/{{ p }}/">{{ p }}</a></li>
+
+        {% endifequal %}
+    {% endfor %}
+    </ul>
+{% endblock %}
